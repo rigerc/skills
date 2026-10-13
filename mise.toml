@@ -1,0 +1,27 @@
+# mise config for consuming this origin's co-located backing CLIs.
+#
+# CRITICAL (architecture.md §8b.1): mise's GitHub backend installs ONE binary
+# per tool entry and tracks a repo's *latest release*. Because this monorepo
+# carries interleaved per-binary tag streams (oxid-v*, foo-v*, …), each tool
+# entry MUST filter to its own tag prefix so it tracks only its own stream.
+# This is exactly why release-please-per-binary is load-bearing, not just tidy
+# versioning — without prefixed tags + this filtering, mise can't consume a
+# co-located monorepo at all.
+#
+# The template ships this stanza so adopting orgs don't have to reverse-engineer
+# the tag_regex. Add one [tools] entry per cmd/<tool>/ binary.
+
+[tools]
+# Private backing CLI built from cmd/oxid/ in THIS repo. The github backend
+# pulls from this origin's own releases; tag_regex pins it to the oxid-v* stream.
+"github:my-org/my-skills" = { version = "latest", tag_regex = "^oxid-v" }
+
+# Public CLIs a skill requires are tracked normally (no prefix filtering needed):
+terraform = ">=1.6"
+
+# Auth (architecture.md §8b.2): mise resolves a GitHub token via, in order,
+# github.credential_command > MISE_GITHUB_TOKEN > github_tokens.toml >
+# gh CLI hosts.yml > git credential fill. For enterprise/secret-manager auth,
+# set a credential_command in your global mise config. In CI, jdx/mise-action
+# uses ${{ github.token }} by default — private fetches in this org's Actions
+# need no extra plumbing.

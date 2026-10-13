@@ -1,0 +1,25 @@
+# The convention contract this origin speaks (architecture.md §2d.3, R5e).
+#
+# The generic skillrig binary reads this (and the mirrored value in index.json)
+# and fails CLEARLY against an incompatible origin rather than misbehaving.
+# Bump `convention_version` only when you change the origin's STRUCTURE:
+# skill layout, index.json schema, the tag/version scheme, or the tree-SHA
+# fingerprint boundary. See docs/CONVENTION.md.
+
+convention_version = 1
+
+# Identity of this origin in OWNER/REPO grammar (architecture.md §9b, R26).
+# Used as the default-backend key written into consumers' lockfiles.
+origin = "my-org/my-skills"
+
+# Where skills live, relative to repo root. The index builder walks
+# `${skills_dir}/*/SKILL.md` (reading YAML frontmatter).
+skills_dir = "skills"
+
+# Where private backing CLIs live. Each subdir is one binary off `cmd/`.
+cmd_dir = "cmd"
+
+# Tag/version scheme: per-binary and per-skill prefixed tags
+# (e.g. oxid-v1.4.0, terraform-plan-review-v1.4.0). Required so mise's GitHub
+# backend can track each release stream independently (architecture.md §8b.1).
+tag_scheme = "name-vSEMVER"

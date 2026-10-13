@@ -1,0 +1,23 @@
+# Per-skill / per-CLI ownership (architecture.md §2b). In the GitHub-authority
+# model, CODEOWNERS paths ARE the "who can approve what" mechanism — combined
+# with branch protection (docs/BRANCH-PROTECTION.md) they replace a registry
+# approval workflow. Edit these to your org's teams.
+
+# Default owners for everything in the repo.
+*                               @my-org/platform-team
+
+# The convention contract and release wiring change the framework's behavior —
+# guard them tightly.
+/.skillrig-origin.toml          @my-org/platform-team
+/release-please-config.json     @my-org/platform-team
+/.goreleaser.yaml               @my-org/platform-team
+/.github/                       @my-org/platform-team
+
+# Backing CLIs — owned by the teams that maintain them.
+/cmd/oxid/                      @my-org/platform-team
+
+# Skills — own by domain. Add a line per skill or per skills/ subtree.
+/skills/terraform-plan-review/  @my-org/platform-team
+
+# External-source policy is a security decision.
+/policy.toml                    @my-org/security

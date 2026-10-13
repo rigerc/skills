@@ -1,0 +1,14 @@
+# Go build output
+/dist/
+*.exe
+*.test
+*.out
+# bare binaries built from cmd/ (e.g. `go build ./cmd/...`)
+/oxid
+
+# goreleaser
+/dist/
+
+# Local env
+.env
+.envrc.local

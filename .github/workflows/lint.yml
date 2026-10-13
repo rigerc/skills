@@ -1,0 +1,31 @@
+# Author-side quality gate at PR time (architecture.md §2b). Because publishing
+# = a PR, this is exactly where format-conformance enforcement belongs. Objective
+# checks BLOCK; any semantic-quality score stays advisory (N6-safe).
+name: lint
+
+on:
+  pull_request:
+    paths:
+      - "skills/**"
+      - "skill.toml"
+      - "**/skill.toml"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Fetch the generic skillrig binary (the same build every org uses).
+      - name: Install skillrig
+        uses: jdx/mise-action@v2
+        with:
+          install: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      # `skillrig lint` scores each changed skill for format conformance:
+      # parseable frontmatter, skill.toml validity, allowed subdirectories,
+      # description length/specificity. Blocking on objective checks.
+      - name: Lint changed skills
+        run: skillrig lint --changed --base "${{ github.event.pull_request.base.sha }}"

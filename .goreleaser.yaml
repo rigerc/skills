@@ -1,0 +1,30 @@
+# goreleaser builds every backing CLI off cmd/<tool>/ for cross-OS/arch (N4).
+# Releases are driven per-binary by release-please tags (oxid-v*, …): the
+# release workflow runs goreleaser scoped to whichever binary's tag fired, so
+# each cmd/ binary ships as its own mise-consumable release stream (§8b.1).
+version: 2
+
+project_name: my-skills
+
+builds:
+  - id: oxid
+    main: ./cmd/oxid
+    binary: oxid
+    env: [CGO_ENABLED=0]
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+    ldflags:
+      - -s -w -X main.version={{.Version}}
+  # Add one build block per additional cmd/<tool>/ binary.
+
+archives:
+  - id: default
+    name_template: "{{ .Binary }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+
+# Recommend enabling immutable releases + tag protection on the repo
+# (docs/BRANCH-PROTECTION.md) so a later compromise can't swap a pinned tag.
+checksum:
+  name_template: "{{ .ProjectName }}_checksums.txt"
+
+release:
+  prerelease: auto

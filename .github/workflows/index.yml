@@ -1,0 +1,50 @@
+# index.json regeneration (architecture.md §2b, §9). The ONLY "write" the system
+# makes to the monorepo. Merge-triggered Action, not a human/agent verb. Walks
+# skills/*/SKILL.md (reading YAML frontmatter) and emits the committed discovery artifact.
+name: index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "skills/**"
+      - ".skillrig-origin.toml"
+      - "policy.toml"
+
+permissions:
+  contents: write
+
+jobs:
+  build-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # The generic skillrig binary owns the index logic (`skillrig index`),
+      # sharing the same skillcore/manifest parsing as verify/bump so values
+      # can't diverge (architecture.md §2). The fallback script below documents
+      # the contract for environments without the binary.
+      - name: Install skillrig
+        uses: jdx/mise-action@v2
+        with:
+          install: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Regenerate index.json
+        run: |
+          if command -v skillrig >/dev/null 2>&1; then
+            skillrig index --out index.json
+          else
+            ./scripts/build-index.sh > index.json
+          fi
+
+      - name: Commit if changed
+        run: |
+          if ! git diff --quiet -- index.json; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add index.json
+            git commit -m "chore: regenerate index.json"
+            git push
+          fi

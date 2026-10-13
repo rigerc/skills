@@ -1,0 +1,29 @@
+# External-source allowlist & adoption policy (architecture.md §9b, R26–R29).
+#
+# This is POLICY DATA shipped with the org-controlled source of truth, so
+# `skillrig doctor` can evaluate "is this source permitted?" as a deterministic
+# OFFLINE lookup — never inference (N6). The allowlist build is consumed by the
+# index workflow; enforcement in `doctor --audit` is a v1 capability designed
+# for here in v0.
+#
+# Identity grammar is the ecosystem-standard OWNER/REPO[/path][@ref] (R26).
+
+# Internal skills (this origin) are implicitly approved — trust is established
+# by PR review + branch protection on this monorepo. They need no allowlist row.
+
+# Vetted EXTERNAL sources, with graded allowance levels:
+#   blocked            — never permitted
+#   advisory           — permitted, surface advisory trust signals (v1)
+#   approved           — permitted at any ref
+#   pinned-version-only — permitted only at the exact @ref listed
+[[external]]
+source    = "anthropics/skills"
+allowance = "pinned-version-only"
+ref       = "v1.0.0"
+note      = "Anthropic's public skill examples; pin exact versions only."
+
+# Example of a fully-approved external org (uncomment + edit to use):
+# [[external]]
+# source    = "github/awesome-copilot"
+# allowance = "approved"
+# note      = "vetted by platform-team 2026-05"

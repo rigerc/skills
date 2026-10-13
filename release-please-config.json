@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "separate-pull-requests": true,
+  "tag-separator": "-",
+  "include-component-in-tag": true,
+  "comment": "Per-binary AND per-skill release streams. include-component-in-tag + tag-separator '-' produce prefixed tags (oxid-v1.4.0, terraform-plan-review-v1.4.0) — REQUIRED so mise's github backend can track each stream independently via tag_regex (architecture.md §8b.1). Each backing CLI and each skill gets its own package entry.",
+  "packages": {
+    "cmd/oxid": {
+      "component": "oxid",
+      "release-type": "go"
+    },
+    "skills/terraform-plan-review": {
+      "component": "terraform-plan-review",
+      "release-type": "simple"
+    }
+  }
+}
