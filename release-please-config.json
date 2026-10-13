@@ -12,6 +12,10 @@
     "skills/terraform-plan-review": {
       "component": "terraform-plan-review",
       "release-type": "simple"
+    },
+    "skills/serena-usage": {
+      "component": "serena-usage",
+      "release-type": "simple"
     }
   }
 }

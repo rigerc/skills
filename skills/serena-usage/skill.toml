@@ -1,0 +1,6 @@
+name = "serena-usage"
+version = "2.1.0"
+namespace = "rigerc"
+description = "Use Serena MCP for symbol-aware code navigation, safe refactoring, onboarding, and persistent memories with v2 REPL and classic MCP tools."
+tags = ["serena", "mcp", "code-navigation", "refactoring", "project-memory"]
+license = "MIT"
