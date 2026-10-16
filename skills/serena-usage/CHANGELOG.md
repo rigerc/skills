@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.0 (2026-10-16)
+
+
+### Features
+
+* **skills:** add Serena Usage v2.1 ([dcb496c](https://github.com/rigerc/skills/commit/dcb496c8627c94888f866c25c971a0da8cf8572b))
+* **skills:** add Serena usage v2.1 skill ([320e9cf](https://github.com/rigerc/skills/commit/320e9cf19bcd5b6a0e6442d8adf8dabe72dc8660))
+
 ## [2026-10-13] - Serena v2 Upstream Sync
 
 ### Added

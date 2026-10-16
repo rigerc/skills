@@ -1,4 +1,5 @@
 {
   "cmd/oxid": "0.4.0",
-  "skills/terraform-plan-review": "1.4.0"
+  "skills/terraform-plan-review": "1.4.0",
+  "skills/serena-usage": "1.0.0"
 }
