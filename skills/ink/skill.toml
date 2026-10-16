@@ -1,0 +1,5 @@
+name = "ink"
+version = "1.0.0"
+namespace = "rigerc"
+description = "Build, debug, and test terminal UIs and interactive CLIs with Ink, React components, hooks, and Flexbox layout."
+tags = ["ink", "react", "cli", "tui", "terminal-ui", "testing"]

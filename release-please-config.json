@@ -16,6 +16,10 @@
     "skills/serena-usage": {
       "component": "serena-usage",
       "release-type": "simple"
+    },
+    "skills/ink": {
+      "component": "ink",
+      "release-type": "simple"
     }
   }
 }
