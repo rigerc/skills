@@ -19,6 +19,7 @@
 # Skills — own by domain. Add a line per skill or per skills/ subtree.
 /skills/terraform-plan-review/  @my-org/platform-team
 /skills/serena-usage/           @rigerc
+/skills/ink/                    @rigerc
 
 # External-source policy is a security decision.
 /policy.toml                    @my-org/security
